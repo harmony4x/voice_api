@@ -1,0 +1,9 @@
+
+
+# cau hinh cho whisper
+
+WHISPER_MODEL_SIZE = 'base'
+WHISPER_DEVICE = 'cpu'
+WHISPER_COMPUTE_TYPE = 'int8'
+WHISPER_BEAM_SIZE = 3
+WHISPER_USE_VAD = True
