@@ -1,6 +1,8 @@
 import os
 from  faster_whisper import WhisperModel, BatchedInferencePipeline
 import re
+from app.modules.gemini_ai import refine_transcript
+from docx import Document
 
 
 
@@ -75,13 +77,19 @@ def transcript_audio (
 
 
 
-def save_transcript(segments: list, output_file: str) -> None:
+def save_transcript(segments: list, output_file: str, api_key: str) -> None:
     """
     Lưu transcript đã tiền xử lý vào file văn bản.
     Mỗi đoạn được lưu theo định dạng:
       [start_time -> end_time] transcript_text
     """
-    with open(output_file, 'w', encoding='utf-8') as f:
-        for seg in segments:
-            # f.write(f"[{seg['start']:.2f}s -> {seg['end']:.2f}s] {seg['text']}\n")
-            f.write(f"{seg['text']}\n")
+    doc = Document()
+    for seg in segments:
+        text = seg["text"]
+        if api_key:
+            text = refine_transcript(text, api_key)
+        # Thêm dòng thời gian — bỏ nếu không cần
+        paragraph = doc.add_paragraph(f"[{seg['start']:.2f}s → {seg['end']:.2f}s] ")
+        paragraph.add_run(text)
+
+    doc.save(output_file)
