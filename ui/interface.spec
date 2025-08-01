@@ -12,6 +12,8 @@ a = Analysis(
         ('../.venv/Lib/site-packages/gradio_client', 'gradio_client'),
         ('../.venv/Lib/site-packages/safehttpx', 'safehttpx'),
         ('../.venv/Lib/site-packages/groovy', 'groovy'),
+        ('../.venv/Lib/site-packages/faster_whisper/assets/silero_encoder_v5.onnx', 'faster_whisper/assets')
+
     ],
     hiddenimports=[
         'gradio', 'gradio_client', 'safehttpx', 'groovy'
